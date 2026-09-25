@@ -1,0 +1,21 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "2.5",
+    "main",
+    "origin",
+    "pro-features"
+  ],
+  "parent": {
+    "2.5": "main",
+    "main": null,
+    "origin": "main",
+    "pro-features": "main"
+  },
+  "order": [
+    "main",
+    "2.5",
+    "origin",
+    "pro-features"
+  ]
+}
