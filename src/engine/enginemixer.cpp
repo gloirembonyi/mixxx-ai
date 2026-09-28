@@ -1,6 +1,7 @@
 #include "engine/enginemixer.h"
 
 #include <algorithm>
+#include <cmath>
 #include <memory>
 
 #include "audio/types.h"
@@ -25,6 +26,7 @@
 #include "preferences/configobject.h"
 #include "preferences/usersettings.h"
 #include "util/defs.h"
+#include "util/math.h"
 #include "util/parented_ptr.h"
 #include "util/sample.h"
 #include "util/samplebuffer.h"
@@ -148,7 +150,16 @@ EngineMixer::EngineMixer(UserSettingsPointer pConfig,
           m_pMainMonoMixdown(std::make_unique<ControlObject>(
                   ConfigKey(group, "mono_mixdown"), true, false, true)),
           m_pMicMonitorMode(std::make_unique<ControlObject>(
-                  ConfigKey(group, "talkover_mix"), true, false, true)) {
+                  ConfigKey(group, "talkover_mix"), true, false, true)),
+          // Enabled by default: it only acts when the output would clip
+          m_pMainLimiterEnabled(std::make_unique<ControlPushButton>(
+                  ConfigKey(group, QStringLiteral("limiter_enabled")), true, 1.0)),
+          m_pMainLimiterReduction(std::make_unique<ControlObject>(
+                  ConfigKey(group, QStringLiteral("limiter_reduction_db")))),
+          m_mainLimiterWasEnabled(true) {
+    m_pMainLimiterEnabled->setButtonMode(ControlPushButton::TOGGLE);
+    m_pMainLimiterReduction->setReadOnly();
+
     pEffectsManager->registerInputChannel(m_mainHandle);
     pEffectsManager->registerInputChannel(m_headphoneHandle);
     pEffectsManager->registerOutputChannel(m_mainHandle);
@@ -589,10 +600,7 @@ void EngineMixer::process(const int iBufferSize) {
                 SampleUtil::add(m_main.data(), m_talkover.data(), iBufferSize);
             }
 
-            // Apply main gain
-            CSAMPLE_GAIN mainGain = static_cast<CSAMPLE_GAIN>(m_pMainGain->get());
-            SampleUtil::applyRampingGain(m_main.data(), m_mainGainOld, mainGain, iBufferSize);
-            m_mainGainOld = mainGain;
+            applyMainGainAndLimiter(iBufferSize);
 
             // Record/broadcast signal is the same as the main output
             if (sidechainMixRequired()) {
@@ -635,14 +643,7 @@ void EngineMixer::process(const int iBufferSize) {
                 m_boothGainOld = boothGain;
             }
 
-            // Apply main gain
-            CSAMPLE_GAIN mainGain = static_cast<CSAMPLE_GAIN>(m_pMainGain->get());
-            SampleUtil::applyRampingGain(
-                    m_main.data(),
-                    m_mainGainOld,
-                    mainGain,
-                    iBufferSize);
-            m_mainGainOld = mainGain;
+            applyMainGainAndLimiter(iBufferSize);
 
             // Record/broadcast signal is the same as the main output
             if (sidechainMixRequired()) {
@@ -683,14 +684,7 @@ void EngineMixer::process(const int iBufferSize) {
                 processHeadphones(mainMixGainInHeadphones, iBufferSize);
             }
 
-            // Apply main gain
-            CSAMPLE_GAIN mainGain = static_cast<CSAMPLE_GAIN>(m_pMainGain->get());
-            SampleUtil::applyRampingGain(
-                    m_main.data(),
-                    m_mainGainOld,
-                    mainGain,
-                    iBufferSize);
-            m_mainGainOld = mainGain;
+            applyMainGainAndLimiter(iBufferSize);
             if (sidechainMixRequired()) {
                 m_sidechainMix.copy(m_main, iBufferSize);
 
@@ -796,6 +790,31 @@ void EngineMixer::process(const int iBufferSize) {
     // We're close to the end of the callback. Wake up the engine worker
     // scheduler so that it runs the workers.
     m_pWorkerScheduler->runWorkers();
+}
+
+void EngineMixer::applyMainGainAndLimiter(int iBufferSize) {
+    CSAMPLE_GAIN mainGain = static_cast<CSAMPLE_GAIN>(m_pMainGain->get());
+    SampleUtil::applyRampingGain(m_main.data(), m_mainGainOld, mainGain, iBufferSize);
+    m_mainGainOld = mainGain;
+
+    const bool limiterEnabled = m_pMainLimiterEnabled->toBool();
+    if (limiterEnabled) {
+        if (!m_mainLimiterWasEnabled) {
+            m_mainLimiter.reset();
+        }
+        m_mainLimiter.process(m_main.data(), iBufferSize, m_sampleRate);
+        const CSAMPLE_GAIN minGain = m_mainLimiter.minGainOfLastBuffer();
+        // Rounded to 0.1 dB so the indicator is not updated on every callback
+        const double reductionDb = minGain < CSAMPLE_GAIN_ONE
+                ? std::round(-ratio2db(minGain) * 10.0) / 10.0
+                : 0.0;
+        if (reductionDb != m_pMainLimiterReduction->get()) {
+            m_pMainLimiterReduction->forceSet(reductionDb);
+        }
+    } else if (m_mainLimiterWasEnabled) {
+        m_pMainLimiterReduction->forceSet(0.0);
+    }
+    m_mainLimiterWasEnabled = limiterEnabled;
 }
 
 void EngineMixer::applyMainEffects(int bufferSize) {

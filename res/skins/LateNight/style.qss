@@ -1045,3 +1045,58 @@ WLibrarySidebar {
 #Border58 {
   border: 1px solid #585858;
 }
+
+
+/* Beat counter: 4 beat LEDs, bar in phrase and beats to the next phrase */
+#BeatCounter {
+  margin: 0px 6px 0px 0px;
+}
+
+#BeatLed,
+#BeatLedDownbeat {
+  margin: 6px 1px 6px 1px;
+  border-radius: 2px;
+  background-color: #2b2b2b;
+  border: 1px solid #3c3c3c;
+}
+
+#BeatLed[highlight="1"] {
+  background-color: #1ea0e0;
+  border-color: #6ccaff;
+}
+
+#BeatLedDownbeat[highlight="1"] {
+  background-color: #f08a24;
+  border-color: #ffc070;
+}
+
+#BarInPhraseText,
+#PhraseCountdownText {
+  font-size: 12px;
+  font-weight: bold;
+  color: #a0a0a0;
+}
+
+/* Warn during the last bar before the next phrase */
+#PhraseCountdownText[highlight="1"] {
+  color: #f08a24;
+}
+
+/* Main limiter: red frame while the limiter reduces the volume */
+#LimiterBox {
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+#LimiterBox[highlight="1"] {
+  border-color: #e0322c;
+  background-color: #5a1411;
+}
+
+/* Phase meter above the overview waveform */
+#PhaseMeter {
+  background-color: #1a1a1a;
+  qproperty-inPhaseColor: #3cc85a;
+  qproperty-offPhaseColor: #f08a24;
+  qproperty-centerColor: #7a7a7a;
+}

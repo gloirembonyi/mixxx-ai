@@ -4406,7 +4406,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
     <message>
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="360"/>
         <source>Unable to detect a mapping -- please try again. Be sure to only touch one control at once.</source>
-        <translation>無法檢測到的映射 — — 請再試一次。要確保只有一次觸摸一個控制項。</translation>
+        <translation>無法檢測到的映射 - - 請再試一次。要確保只有一次觸摸一個控制項。</translation>
     </message>
     <message>
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="411"/>

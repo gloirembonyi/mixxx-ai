@@ -675,6 +675,10 @@ void CoreServices::initialize(QApplication* pApp) {
             m_pPlayerManager->slotLoadToDeck(musicFiles.at(i), i + 1);
         }
     }
+    // Otherwise continue where the last session ended (or crashed)
+    if (musicFiles.isEmpty()) {
+        m_pPlayerManager->restoreDeckSession();
+    }
 
     m_isInitialized = true;
 }

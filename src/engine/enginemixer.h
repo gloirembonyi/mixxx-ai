@@ -12,6 +12,7 @@
 #include "engine/channelhandle.h"
 #include "engine/channels/enginechannel.h"
 #include "engine/effects/groupfeaturestate.h"
+#include "engine/enginelimiter.h"
 #include "engine/engineobject.h"
 #include "preferences/usersettings.h"
 #include "recording/recordingmanager.h"
@@ -261,6 +262,8 @@ class EngineMixer : public QObject, public AudioSource {
             const CSAMPLE_GAIN mainMixGainInHeadphones,
             int iBufferSize);
     bool sidechainMixRequired() const;
+    // Applies the main gain and the clip protection limiter to m_main
+    void applyMainGainAndLimiter(int iBufferSize);
 
     // non-owning. lifetime bound to EffectsManager
     EngineEffectsManager* m_pEngineEffectsManager;
@@ -339,6 +342,13 @@ class EngineMixer : public QObject, public AudioSource {
     // Mix two Mono channels. This is useful for outdoor gigs
     std::unique_ptr<ControlObject> m_pMainMonoMixdown;
     std::unique_ptr<ControlObject> m_pMicMonitorMode;
+
+    // Clip protection for the main output (and record/broadcast signal)
+    EngineLimiter m_mainLimiter;
+    std::unique_ptr<ControlPushButton> m_pMainLimiterEnabled;
+    // Gain reduction of the limiter in dB (>= 0), e.g. for a skin indicator
+    std::unique_ptr<ControlObject> m_pMainLimiterReduction;
+    bool m_mainLimiterWasEnabled;
 
     // TODO (Swiftb0y): remove volatile (probably supposed to be std::atomic instead).
     volatile bool m_bBusOutputConnected[3];

@@ -1,6 +1,7 @@
 #include "engine/controls/ratecontrol.h"
 
 #include <QtDebug>
+#include <cmath>
 
 #include "control/controlobject.h"
 #include "control/controlpotmeter.h"
@@ -17,6 +18,12 @@
 namespace {
 constexpr int kRateSensitivityMin = 100;
 constexpr int kRateSensitivityMax = 2500;
+// Duration of the slow tempo reset glide, independent of the distance
+constexpr double kSlowResetDurationSeconds = 4.0;
+// The engine processes interleaved stereo samples
+constexpr double kEngineSamplesPerFrame = 2.0;
+// Rounding tolerance when checking if the slider was moved by someone else
+constexpr double kSlowResetTolerance = 1e-9;
 } // namespace
 
 // Static default values for rate buttons (percents)
@@ -72,6 +79,10 @@ RateControl::RateControl(const QString& group, UserSettingsPointer pConfig)
                   ConfigKey(group, QStringLiteral("rate_perm_up")))),
           m_pButtonRatePermUpSmall(std::make_unique<ControlPushButton>(
                   ConfigKey(group, QStringLiteral("rate_perm_up_small")))),
+          m_pButtonRateResetSlow(std::make_unique<ControlPushButton>(
+                  ConfigKey(group, QStringLiteral("rate_reset_slow")))),
+          m_pRateResetSlowActive(std::make_unique<ControlObject>(
+                  ConfigKey(group, QStringLiteral("rate_reset_slow_active")))),
           // Reverse button
           m_pReverseButton(std::make_unique<ControlPushButton>(
                   ConfigKey(group, QStringLiteral("reverse")))),
@@ -112,7 +123,17 @@ RateControl::RateControl(const QString& group, UserSettingsPointer pConfig)
           m_targetPos(mixxx::audio::FramePos()),
           m_bTempStarted(false),
           m_tempRateRatio(0.0),
-          m_dRateTempRampChange(0.0) {
+          m_dRateTempRampChange(0.0),
+          m_slowResetSliderPerSecond(0.0),
+          m_slowResetLastSlider(0.0),
+          m_slowResetRequested(false) {
+    m_pRateResetSlowActive->setReadOnly();
+    connect(m_pButtonRateResetSlow.get(),
+            &ControlObject::valueChanged,
+            this,
+            &RateControl::slotControlRateResetSlow,
+            Qt::DirectConnection);
+
     // This is the resulting rate ratio that can be used for display or calculations.
     // The track original rate ratio is 1.
     connect(m_pRateRatio.get(),
@@ -362,6 +383,52 @@ void RateControl::slotControlRatePermUpSmall(double v) {
     }
 }
 
+void RateControl::slotControlRateResetSlow(double v) {
+    if (v > 0.0) {
+        // Pressing again while gliding restarts the glide from the current
+        // position, which is harmless. The engine thread picks this up.
+        m_slowResetRequested.store(true);
+    }
+}
+
+void RateControl::processSlowRateReset(const int bufferSamples) {
+    const double slider = m_pRateSlider->get();
+    if (m_slowResetRequested.exchange(false)) {
+        if (slider == 0.0) {
+            return;
+        }
+        m_slowResetSliderPerSecond = std::abs(slider) / kSlowResetDurationSeconds;
+        m_slowResetLastSlider = slider;
+        m_pRateResetSlowActive->forceSet(1.0);
+    }
+    if (m_slowResetSliderPerSecond == 0.0) {
+        return;
+    }
+    // Any other change of the slider (user, controller, sync) cancels the glide
+    if (std::abs(slider - m_slowResetLastSlider) > kSlowResetTolerance) {
+        m_slowResetSliderPerSecond = 0.0;
+        m_pRateResetSlowActive->forceSet(0.0);
+        return;
+    }
+    const double sampleRate = m_pSampleRate.get();
+    if (sampleRate <= 0.0) {
+        return;
+    }
+    const double bufferSeconds = bufferSamples / (kEngineSamplesPerFrame * sampleRate);
+    const double step = m_slowResetSliderPerSecond * bufferSeconds;
+    double newSlider;
+    if (std::abs(slider) <= step) {
+        newSlider = 0.0;
+        m_slowResetSliderPerSecond = 0.0;
+        m_pRateResetSlowActive->forceSet(0.0);
+    } else {
+        newSlider = slider > 0.0 ? slider - step : slider + step;
+    }
+    m_slowResetLastSlider = newSlider;
+    m_pRateSlider->set(newSlider);
+    slotRateSliderChanged(newSlider);
+}
+
 double RateControl::getWheelFactor() const {
     return m_pWheel->get();
 }
@@ -398,6 +465,7 @@ double RateControl::calculateSpeed(double baserate, double speed, bool paused,
     *pReportReverse = false;
 
     processTempRate(iSamplesPerBuffer);
+    processSlowRateReset(iSamplesPerBuffer);
 
     double rate;
     const double searching = m_pRateSearch->get();

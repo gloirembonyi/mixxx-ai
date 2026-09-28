@@ -744,7 +744,7 @@
     <message>
         <location filename="../../src/util/cmdlineargs.cpp" line="162"/>
         <source>Mixxx is an open source DJ software. For more information, see: </source>
-        <translation>Mixxx — это программное обеспечение для диджеев с открытым исходным кодом. Для получения дополнительной информации см.: </translation>
+        <translation>Mixxx - это программное обеспечение для диджеев с открытым исходным кодом. Для получения дополнительной информации см.: </translation>
     </message>
     <message>
         <location filename="../../src/util/cmdlineargs.cpp" line="170"/>
@@ -825,16 +825,16 @@ info     - Above + Informational messages
 debug    - Above + Debug/Developer messages
 trace    - Above + Profiling messages</source>
         <translation>Задаёт уровень детализации ведения журнала командной строки.
-critical — только критические записи
-warning — То, что выше + Предупреждения
-info — То, что выше + Информационные сообщения
-debug — То, что выше + сообщения отладки/разработчика
-trace — То, что выше + сообщения профилирования</translation>
+critical - только критические записи
+warning - То, что выше + Предупреждения
+info - То, что выше + Информационные сообщения
+debug - То, что выше + сообщения отладки/разработчика
+trace - То, что выше + сообщения профилирования</translation>
     </message>
     <message>
         <location filename="../../src/util/cmdlineargs.cpp" line="318"/>
         <source>Sets the the logging level at which the log buffer is flushed to mixxx.log. &lt;level&gt; is one of the values defined at --log-level above.</source>
-        <translation>Устанавливает уровень журналирования, при котором буфер журнала сбрасывается в mixxx.log. &lt;level&gt; — это одно из значений, определённых в --log-level выше.</translation>
+        <translation>Устанавливает уровень журналирования, при котором буфер журнала сбрасывается в mixxx.log. &lt;level&gt; - это одно из значений, определённых в --log-level выше.</translation>
     </message>
     <message>
         <location filename="../../src/util/cmdlineargs.cpp" line="332"/>
@@ -1631,7 +1631,7 @@ trace — То, что выше + сообщения профилировани�
     <message>
         <location filename="../../src/controllers/controlpickermenu.cpp" line="324"/>
         <source>Adjust Beatgrid - Match Alignment</source>
-        <translation>Отрегулировать битовую сетку — сопоставить выравнивание</translation>
+        <translation>Отрегулировать битовую сетку - сопоставить выравнивание</translation>
     </message>
     <message>
         <location filename="../../src/controllers/controlpickermenu.cpp" line="325"/>
@@ -1666,7 +1666,7 @@ trace — То, что выше + сообщения профилировани�
     <message>
         <location filename="../../src/controllers/controlpickermenu.cpp" line="441"/>
         <source>Pitch control (does not affect tempo), center is original pitch</source>
-        <translation>Настройка питча (не влияет на темп), центр — оригинальный шаг</translation>
+        <translation>Настройка питча (не влияет на темп), центр - оригинальный шаг</translation>
     </message>
     <message>
         <location filename="../../src/controllers/controlpickermenu.cpp" line="462"/>
@@ -1767,7 +1767,7 @@ trace — То, что выше + сообщения профилировани�
     <message>
         <location filename="../../src/controllers/controlpickermenu.cpp" line="495"/>
         <source>Single deck mode - Switch vinyl control to next deck</source>
-        <translation>Режим одной деки — перейти к пластинке на следующей деке</translation>
+        <translation>Режим одной деки - перейти к пластинке на следующей деке</translation>
     </message>
     <message>
         <location filename="../../src/controllers/controlpickermenu.cpp" line="500"/>
@@ -3751,7 +3751,7 @@ trace — То, что выше + сообщения профилировани�
     <message>
         <location filename="../../src/library/trackset/crate/cratefeature.cpp" line="194"/>
         <source>Crates are a great way to help organize the music you want to DJ with.</source>
-        <translation>Контейнеры — это полезный для диджеев инструмент организации музыки для обработки и выступлений.</translation>
+        <translation>Контейнеры - это полезный для диджеев инструмент организации музыки для обработки и выступлений.</translation>
     </message>
     <message>
         <location filename="../../src/library/trackset/crate/cratefeature.cpp" line="132"/>
@@ -4408,7 +4408,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
     <message>
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="360"/>
         <source>Unable to detect a mapping -- please try again. Be sure to only touch one control at once.</source>
-        <translation>Не удалось определить сопоставление — попробуйте снова. Взаимодействуйте с одним контроллером за раз.</translation>
+        <translation>Не удалось определить сопоставление - попробуйте снова. Взаимодействуйте с одним контроллером за раз.</translation>
     </message>
     <message>
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="411"/>
@@ -5430,7 +5430,7 @@ Apply settings and continue?</source>
     <message>
         <location filename="../../src/controllers/dlgprefcontrollersdlg.ui" line="30"/>
         <source>Controllers are physical devices that send MIDI or HID signals to your computer over a USB connection. These allow you to control Mixxx in a more hands-on way than a keyboard and mouse. Attached controllers that Mixxx recognizes are shown in the &quot;Controllers&quot; section in the sidebar.</source>
-        <translation>Контроллеры — это физические устройства, которые отправляют MIDI- или HID-сигналы через USB-соединение. Они позволяют работать с Mixxx более эффективным способом, чем через мышь и клавиатуру. Подключённые контроллеры, которые распознаёт Mixxx, показываются в разделе «Контроллеры» на боковой панели.</translation>
+        <translation>Контроллеры - это физические устройства, которые отправляют MIDI- или HID-сигналы через USB-соединение. Они позволяют работать с Mixxx более эффективным способом, чем через мышь и клавиатуру. Подключённые контроллеры, которые распознаёт Mixxx, показываются в разделе «Контроллеры» на боковой панели.</translation>
     </message>
     <message>
         <location filename="../../src/controllers/dlgprefcontrollersdlg.ui" line="119"/>
@@ -5576,27 +5576,27 @@ Apply settings and continue?</source>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="120"/>
         <source>mm:ss%1zz - Traditional</source>
-        <translation>mm:ss%1zz — Традиционный</translation>
+        <translation>mm:ss%1zz - Традиционный</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="125"/>
         <source>mm:ss - Traditional (Coarse)</source>
-        <translation>mm:ss — Традиционный (груб.)</translation>
+        <translation>mm:ss - Традиционный (груб.)</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="129"/>
         <source>s%1zz - Seconds</source>
-        <translation>s%1zz — Секунды</translation>
+        <translation>s%1zz - Секунды</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="134"/>
         <source>sss%1zz - Seconds (Long)</source>
-        <translation>sss%1zz — Секунды (длинн.)</translation>
+        <translation>sss%1zz - Секунды (длинн.)</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="139"/>
         <source>s%1sss%2zz - Kiloseconds</source>
-        <translation>s%1sss%2zz — Килосекунды</translation>
+        <translation>s%1sss%2zz - Килосекунды</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="153"/>
@@ -5933,7 +5933,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeckdlg.ui" line="532"/>
         <source>Down increases speed</source>
-        <translation>Вниз — увеличение скорости</translation>
+        <translation>Вниз - увеличение скорости</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeckdlg.ui" line="545"/>
@@ -6434,7 +6434,7 @@ and allows you to pitch adjust them for harmonic mixing.</source>
     <message>
         <location filename="../../src/preferences/dialog/dlgpreflibrary.cpp" line="429"/>
         <source>Metadata means all track details (artist, title, playcount, etc.) as well as beatgrids, hotcues, and loops. This choice only affects the Mixxx library. No files on disk will be changed or deleted.</source>
-        <translation>Метаданные — это вся информация о треке (исполнитель, название и так далее), а также о сетке битов, метках и петлях. Этот выбор влияет только на медиатеку Mixxx. Файлы на диске не будут изменены или удалены.</translation>
+        <translation>Метаданные - это вся информация о треке (исполнитель, название и так далее), а также о сетке битов, метках и петлях. Этот выбор влияет только на медиатеку Mixxx. Файлы на диске не будут изменены или удалены.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgpreflibrary.cpp" line="437"/>
@@ -7656,7 +7656,7 @@ The loudness target is approximate and assumes track pregain and main output lev
     <message>
         <location filename="../../src/preferences/dialog/dlgprefsounditem.cpp" line="108"/>
         <source>Channels %1 - %2</source>
-        <translation>Каналы %1 — %2</translation>
+        <translation>Каналы %1 - %2</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefsounditem.ui" line="14"/>
@@ -9985,7 +9985,7 @@ Do you want to select an input device?</source>
     <message>
         <location filename="../../src/library/trackset/playlistfeature.cpp" line="345"/>
         <source>Playlists are ordered lists of tracks that allow you to plan your DJ sets.</source>
-        <translation>Списки воспроизведения — это упорядоченные списки треков, позволяющие планировать диджейские выступления.</translation>
+        <translation>Списки воспроизведения - это упорядоченные списки треков, позволяющие планировать диджейские выступления.</translation>
     </message>
     <message>
         <location filename="../../src/library/trackset/playlistfeature.cpp" line="355"/>
@@ -10396,8 +10396,8 @@ If you do not want to grant Mixxx access, click Cancel on the file picker. Mixxx
 1/8 - 2 beats if tempo is detected
 1/8 - 2 seconds if no tempo is detected</source>
         <translation>Время задержки
-1/8 — 2 бита, если определяется темп
-1/8 — 2 секунды, если темп не определён</translation>
+1/8 - 2 бита, если определяется темп
+1/8 - 2 секунды, если темп не определён</translation>
     </message>
     <message>
         <location filename="../../src/effects/backends/builtin/echoeffect.cpp" line="59"/>
@@ -10536,7 +10536,7 @@ Default: flat top</source>
 32 - 1/4 beats rounded to 1/2 beat per LFO cycle if tempo is detected
 1/32 - 4 Hz if no tempo is detected</source>
         <translation>Скорость генератора низкой частоты
-32 — 1/4 бытов округлены до 1/2 битов на цикл LFO, если известен темп
+32 - 1/4 бытов округлены до 1/2 битов на цикл LFO, если известен темп
 1/32 - 4 Гц, если темп неизвестен</translation>
     </message>
     <message>
@@ -10649,8 +10649,8 @@ With width at zero, this allows for manually sweeping over the entire delay rang
 1/4 - 4 beats rounded to 1/2 beat if tempo is detected
 1/4 - 4 seconds if no tempo is detected</source>
         <translation>Как быстро звук переходит от одной стороны к другой
-1/4 — 4 бита округлены до 1/2 бита, если темп известен
-1/4 — 4 секунды, если темп неизвестен</translation>
+1/4 - 4 бита округлены до 1/2 бита, если темп известен
+1/4 - 4 секунды, если темп неизвестен</translation>
     </message>
     <message>
         <location filename="../../src/effects/backends/builtin/autopaneffect.cpp" line="42"/>
@@ -10865,7 +10865,7 @@ Higher values result in less attenuation of high frequencies.</source>
     <message>
         <location filename="../../src/test/metaknob_link_test.cpp" line="210"/>
         <source>Gain for Low Filter (neutral at 1.0)</source>
-        <translation>Выравнивание фильтра низких частот (нейтральное значение — 1,0)</translation>
+        <translation>Выравнивание фильтра низких частот (нейтральное значение - 1,0)</translation>
     </message>
     <message>
         <location filename="../../src/soundio/sounddevicenetwork.cpp" line="49"/>
@@ -10901,8 +10901,8 @@ Higher values result in less attenuation of high frequencies.</source>
 1/4 - 4 beats rounded to 1/2 beat if tempo is detected
 1/4 - 4 seconds if no tempo is detected</source>
         <translation>Период генератора низкой частоты
-1/4 — 4 бита округлены до 1/2 бита, если известен темп
-1/4 — 4 секунды, если темп неизвестен</translation>
+1/4 - 4 бита округлены до 1/2 бита, если известен темп
+1/4 - 4 секунды, если темп неизвестен</translation>
     </message>
     <message>
         <location filename="../../src/effects/backends/builtin/phasereffect.cpp" line="45"/>
@@ -11291,15 +11291,15 @@ a higher Q affects a narrower band of frequencies.</source>
 4 beats - 1/8 beat if tempo is detected
 1/4 Hz - 8 Hz if no tempo is detected</source>
         <translation>Скорость изменения громкости
-4 бита — 1/8 бита, если темп известен
-1/4 Гц — 8 Гц, если темп неизвестен</translation>
+4 бита - 1/8 бита, если темп известен
+1/4 Гц - 8 Гц, если темп неизвестен</translation>
     </message>
     <message>
         <location filename="../../src/effects/backends/builtin/tremoloeffect.cpp" line="52"/>
         <source>Width of the volume peak
 10% - 90% of the effect period</source>
         <translation>Ширина пика громкости
-10% — 90% периода эффекта</translation>
+10% - 90% периода эффекта</translation>
     </message>
     <message>
         <location filename="../../src/effects/backends/builtin/tremoloeffect.cpp" line="63"/>
@@ -13148,7 +13148,7 @@ may introduce a &apos;pumping&apos; effect and/or distortion.</source>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="230"/>
         <source>If activated, the main mix signal plays in the right channel, while the cueing signal plays in the left channel.</source>
-        <translation>Если эта функция включена, сигнал основного микса воспроизводится в правом канале, а сигнал метки — в левом канале.</translation>
+        <translation>Если эта функция включена, сигнал основного микса воспроизводится в правом канале, а сигнал метки - в левом канале.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="262"/>
@@ -13401,7 +13401,7 @@ may introduce a &apos;pumping&apos; effect and/or distortion.</source>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="766"/>
         <source>Hot Cue - Track will seek to nearest previous hotcue point.</source>
-        <translation>Горячая метка — произойдёт переход по треку к ближайшей предыдущей точке горячей метки.</translation>
+        <translation>Горячая метка - произойдёт переход по треку к ближайшей предыдущей точке горячей метки.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="771"/>
@@ -14664,7 +14664,7 @@ Use this to change only the effected (wet) signal with EQ and filter effects.</s
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="757"/>
         <source>Absolute mode - track position equals needle position and speed.</source>
-        <translation>Абсолютный режим — позиция трека равна позиции и скорости иглы.</translation>
+        <translation>Абсолютный режим - позиция трека равна позиции и скорости иглы.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="758"/>
@@ -14674,7 +14674,7 @@ Use this to change only the effected (wet) signal with EQ and filter effects.</s
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="759"/>
         <source>Constant mode - track speed equals last known-steady speed regardless of needle input.</source>
-        <translation>Постоянный режим — скорость трека равна последней известной — постоянная скорость независимо от ввода иглы.</translation>
+        <translation>Постоянный режим - скорость трека равна последней известной - постоянная скорость независимо от ввода иглы.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="748"/>

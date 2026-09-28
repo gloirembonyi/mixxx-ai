@@ -23,18 +23,36 @@
       </WidgetGroup><!-- SpinnyCoverContainer_Small -->
 
       <WidgetGroup>
-        <ObjectName>OverviewBox</ObjectName>
-        <Size>me,63me</Size>
-        <Layout>horizontal</Layout>
+        <Layout>vertical</Layout>
+        <SizePolicy>me,me</SizePolicy>
         <Children>
-          <SingletonContainer>
-            <ObjectName>DeckOverview<Variable name="ChanNum"/></ObjectName>
-          </SingletonContainer>
+          <!-- Beat phase compared to the sync leader or the other playing deck -->
+          <PhaseMeter>
+            <ObjectName>PhaseMeter</ObjectName>
+            <TooltipId>phase_meter</TooltipId>
+            <Group><Variable name="Group"/></Group>
+            <Size>me,6f</Size>
+            <Connection>
+              <ConfigKey><Variable name="Group"/>,track_loaded</ConfigKey>
+              <BindProperty>visible</BindProperty>
+            </Connection>
+          </PhaseMeter>
+
+          <WidgetGroup>
+            <ObjectName>OverviewBox</ObjectName>
+            <Size>me,63me</Size>
+            <Layout>horizontal</Layout>
+            <Children>
+              <SingletonContainer>
+                <ObjectName>DeckOverview<Variable name="ChanNum"/></ObjectName>
+              </SingletonContainer>
+            </Children>
+            <Connection>
+              <ConfigKey><Variable name="Group"/>,track_loaded</ConfigKey>
+              <BindProperty>highlight</BindProperty>
+            </Connection>
+          </WidgetGroup>
         </Children>
-        <Connection>
-          <ConfigKey><Variable name="Group"/>,track_loaded</ConfigKey>
-          <BindProperty>highlight</BindProperty>
-        </Connection>
       </WidgetGroup>
 
       <WidgetGroup>

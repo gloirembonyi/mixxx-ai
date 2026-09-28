@@ -16,6 +16,7 @@
 #include "engine/controls/enginecontrol.h"
 #include "engine/controls/keycontrol.h"
 #include "engine/controls/loopingcontrol.h"
+#include "engine/controls/pitchplaycontrol.h"
 #include "engine/controls/quantizecontrol.h"
 #include "engine/controls/ratecontrol.h"
 #include "engine/enginemixer.h"
@@ -233,6 +234,9 @@ EngineBuffer::EngineBuffer(const QString& group,
     // Create the cue controller
     m_pCueControl = new CueControl(group, pConfig);
     addControl(m_pCueControl);
+
+    // Pitch Play uses the hotcue and pitch controls created above
+    addControl(new PitchPlayControl(group, pConfig));
 
     connect(m_pLoopingControl,
             &LoopingControl::loopReset,

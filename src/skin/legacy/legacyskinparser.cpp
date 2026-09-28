@@ -32,6 +32,7 @@
 #include "widget/controlwidgetconnection.h"
 #include "widget/wbasewidget.h"
 #include "widget/wbattery.h"
+#include "widget/wphasemeter.h"
 #include "widget/wbeatspinbox.h"
 #include "widget/wcombobox.h"
 #include "widget/wcoverart.h"
@@ -621,6 +622,8 @@ QList<QWidget*> LegacySkinParser::parseNode(const QDomElement& node) {
         result = wrapWidget(parseEngineKey(node));
     } else if (nodeName == "Battery") {
         result = wrapWidget(parseBattery(node));
+    } else if (nodeName == "PhaseMeter") {
+        result = wrapWidget(parsePhaseMeter(node));
     } else if (nodeName == "SetVariable") {
         m_pContext->updateVariable(node);
     } else if (nodeName == "Scrollable") {
@@ -1293,6 +1296,18 @@ QWidget* LegacySkinParser::parseBeatSpinBox(const QDomElement& node) {
 
 QWidget* LegacySkinParser::parseBattery(const QDomElement& node) {
     WBattery *p = new WBattery(m_pParent);
+    setupBaseWidget(node, p);
+    setupWidget(node, p);
+    p->setup(node, *m_pContext);
+    setupConnections(node, p);
+    p->installEventFilter(m_pKeyboard);
+    p->installEventFilter(m_pControllerManager->getControllerLearningEventFilter());
+    return p;
+}
+
+QWidget* LegacySkinParser::parsePhaseMeter(const QDomElement& node) {
+    const QString group = lookupNodeGroup(node);
+    WPhaseMeter* p = new WPhaseMeter(m_pParent, group);
     setupBaseWidget(node, p);
     setupWidget(node, p);
     p->setup(node, *m_pContext);

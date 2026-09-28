@@ -75,6 +75,10 @@ class PlayerManager : public PlayerManagerInterface {
     // Add number of decks according to configuration.
     void addConfiguredDecks();
 
+    // Loads the tracks that were loaded in the decks when Mixxx was closed
+    // or crashed, if enabled in the preferences.
+    void restoreDeckSession();
+
     // Add a sampler to the PlayerManager
     void addSampler();
 
@@ -240,6 +244,9 @@ class PlayerManager : public PlayerManagerInterface {
 
   private:
     TrackPointer lookupTrack(QString location);
+    // Remembers the track of a deck for restoreDeckSession(). The settings
+    // are written immediately so the session survives a crash.
+    void saveDeckSession(const QString& group, const QString& location);
     // Must hold m_mutex before calling this method. Internal method that
     // creates a new deck.
     void addDeckInner();

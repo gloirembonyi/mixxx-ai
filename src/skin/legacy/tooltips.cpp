@@ -516,6 +516,44 @@ void Tooltips::addStandardTooltips() {
 
     // Used in cue/hotcue/loop tooltips below.
     QString quantizeSnap = tr("If quantize is enabled, snaps to the nearest beat.");
+    add("beat_in_bar")
+            << tr("Beat Counter")
+            << tr("Shows the current beat of the bar, counted from the "
+                  "first beat of the beatgrid.")
+            << tr("The first LED is the downbeat. Shift the beatgrid if the "
+                  "count does not start on the downbeat of the track.");
+
+    add("bar_in_phrase")
+            << tr("Bar in Phrase")
+            << tr("Shows the current bar of the 8 bar (32 beat) phrase.");
+
+    add("beats_until_phrase")
+            << tr("Beats to Next Phrase")
+            << tr("Counts down the beats until the next 32 beat phrase "
+                  "starts. Lights up during the last bar.")
+            << tr("Start the next track or a transition on the phrase "
+                  "change for a seamless mix.");
+
+    add("phase_meter")
+            << tr("Phase Meter")
+            << tr("Shows how far the beats of this deck are ahead (right) or "
+                  "behind (left) the beats of the sync leader, or of the other "
+                  "playing deck.")
+            << tr("Green means the beats are aligned.");
+
+    add("rate_reset_slow")
+            << tr("Smooth Tempo Reset")
+            << tr("Glides the playback speed back to the original tempo of "
+                  "the track over 4 seconds, without an audible jump.")
+            << tr("Moving the tempo slider cancels the glide.");
+
+    add("limiter_enabled")
+            << tr("Main Limiter")
+            << tr("Protects the main output and recordings against digital "
+                  "clipping.")
+            << tr("Lights up while the limiter reduces the volume. Lower the "
+                  "main gain if it lights up constantly.");
+
     add("quantize")
             << tr("Quantize")
             << tr("Toggles quantization.")
