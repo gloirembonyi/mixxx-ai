@@ -27,7 +27,26 @@ class ClockControl: public EngineControl {
     void trackBeatsUpdated(mixxx::BeatsPointer pBeats) override;
 
   private:
+    /// Updates the beat/bar/phrase counter controls from the index of the
+    /// last passed beat, counted from the first beat (downbeat) of the grid.
+    void updateBeatCounter(int beatIndex);
+    void clearBeatCounter();
+
     std::unique_ptr<ControlObject> m_pCOBeatActive;
+
+    // Beat, bar and phrase counter (4 beats per bar, 8 bars per phrase)
+    std::unique_ptr<ControlObject> m_pCOBeatNumber;
+    std::unique_ptr<ControlObject> m_pCOBeatInBar;
+    std::unique_ptr<ControlObject> m_pCOBarNumber;
+    std::unique_ptr<ControlObject> m_pCOBarInPhrase;
+    std::unique_ptr<ControlObject> m_pCOPhraseNumber;
+    std::unique_ptr<ControlObject> m_pCOBeatsUntilPhrase;
+    // 1 during the last bar before the next phrase, e.g. for a warning light
+    std::unique_ptr<ControlObject> m_pCOPhraseLastBar;
+    int m_lastCountedBeatIndex;
+    // Identity of the beats the counter was calculated from. Only compared,
+    // never dereferenced.
+    const mixxx::Beats* m_pCountedBeats;
 
     // ControlObjects that come from LoopingControl
     std::unique_ptr<ControlProxy> m_pLoopEnabled;

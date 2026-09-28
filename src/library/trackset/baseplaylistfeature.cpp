@@ -513,7 +513,7 @@ void BasePlaylistFeature::slotImportPlaylistFile(const QString& playlistFile,
             if (Sandbox::askForAccess(&dirInfo)) {
                 trackFile.refresh();
             } else {
-                // User cancelled — stop prompting to avoid repeated dialogs.
+                // User cancelled - stop prompting to avoid repeated dialogs.
                 qWarning() << "Sandbox access denied or cancelled for"
                            << trackFile.locationPath();
                 break;

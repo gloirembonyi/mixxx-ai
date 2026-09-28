@@ -96,6 +96,60 @@
                   </TrackProperty>
                 </Children>
               </WidgetGroup>
+              <WidgetGroup><!-- Beat counter: 4 beat LEDs + beats to next phrase -->
+                <ObjectName>BeatCounter</ObjectName>
+                <Layout>horizontal</Layout>
+                <SizePolicy>max,min</SizePolicy>
+                <Children>
+                  <Template src="skins:LateNight/decks/beat_counter_led.xml">
+                    <SetVariable name="Beat">1</SetVariable>
+                    <SetVariable name="LedName">BeatLedDownbeat</SetVariable>
+                  </Template>
+                  <Template src="skins:LateNight/decks/beat_counter_led.xml">
+                    <SetVariable name="Beat">2</SetVariable>
+                    <SetVariable name="LedName">BeatLed</SetVariable>
+                  </Template>
+                  <Template src="skins:LateNight/decks/beat_counter_led.xml">
+                    <SetVariable name="Beat">3</SetVariable>
+                    <SetVariable name="LedName">BeatLed</SetVariable>
+                  </Template>
+                  <Template src="skins:LateNight/decks/beat_counter_led.xml">
+                    <SetVariable name="Beat">4</SetVariable>
+                    <SetVariable name="LedName">BeatLed</SetVariable>
+                  </Template>
+                  <Number>
+                    <ObjectName>BarInPhraseText</ObjectName>
+                    <TooltipId>bar_in_phrase</TooltipId>
+                    <Size>44f,25f</Size>
+                    <Alignment>center</Alignment>
+                    <Text>BAR %1</Text>
+                    <NumberOfDigits>0</NumberOfDigits>
+                    <Connection>
+                      <ConfigKey><Variable name="Group"/>,bar_in_phrase</ConfigKey>
+                    </Connection>
+                  </Number>
+                  <Number>
+                    <ObjectName>PhraseCountdownText</ObjectName>
+                    <TooltipId>beats_until_phrase</TooltipId>
+                    <Size>32f,25f</Size>
+                    <Alignment>center</Alignment>
+                    <Text>-%1</Text>
+                    <NumberOfDigits>0</NumberOfDigits>
+                    <Connection>
+                      <ConfigKey><Variable name="Group"/>,beats_until_phrase</ConfigKey>
+                    </Connection>
+                    <Connection>
+                      <ConfigKey><Variable name="Group"/>,phrase_last_bar</ConfigKey>
+                      <BindProperty>highlight</BindProperty>
+                    </Connection>
+                  </Number>
+                </Children>
+                <Connection>
+                  <!-- hidden while no track with beatgrid is loaded (value 0) -->
+                  <ConfigKey><Variable name="Group"/>,beat_in_bar</ConfigKey>
+                  <BindProperty>visible</BindProperty>
+                </Connection>
+              </WidgetGroup>
               <WidgetGroup>
                 <ObjectName>AlignRight</ObjectName>
                 <Layout>horizontal</Layout>

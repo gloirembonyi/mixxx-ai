@@ -890,6 +890,7 @@ add_library(mixxx-lib STATIC EXCLUDE_FROM_ALL
   src/engine/controls/enginecontrol.cpp
   src/engine/controls/keycontrol.cpp
   src/engine/controls/loopingcontrol.cpp
+  src/engine/controls/pitchplaycontrol.cpp
   src/engine/controls/quantizecontrol.cpp
   src/engine/controls/ratecontrol.cpp
   src/engine/effects/engineeffect.cpp
@@ -898,6 +899,7 @@ add_library(mixxx-lib STATIC EXCLUDE_FROM_ALL
   src/engine/effects/engineeffectsmanager.cpp
   src/engine/enginebuffer.cpp
   src/engine/enginedelay.cpp
+  src/engine/enginelimiter.cpp
   src/engine/enginemixer.cpp
   src/engine/engineobject.cpp
   src/engine/enginepregain.cpp
@@ -927,6 +929,14 @@ add_library(mixxx-lib STATIC EXCLUDE_FROM_ALL
   src/engine/sync/internalclock.cpp
   src/engine/sync/synccontrol.cpp
   src/errordialoghandler.cpp
+  src/library/aidj/aidjfeature.cpp
+  src/library/aidj/aidjlibrary.cpp
+  src/library/aidj/aidjwidgets.cpp
+  src/library/aidj/aiservice.cpp
+  src/library/aidj/djrecommender.cpp
+  src/library/aidj/dlgaidj.cpp
+  src/library/aidj/dlgmusicfinder.cpp
+  src/library/aidj/musicsources.cpp
   src/library/analysis/analysisfeature.cpp
   src/library/analysis/analysislibrarytablemodel.cpp
   src/library/analysis/dlganalysis.cpp
@@ -1334,6 +1344,7 @@ add_library(mixxx-lib STATIC EXCLUDE_FROM_ALL
   src/widget/wnumberpos.cpp
   src/widget/wnumberrate.cpp
   src/widget/woverview.cpp
+  src/widget/wphasemeter.cpp
   src/widget/wpixmapstore.cpp
   src/widget/wpushbutton.cpp
   src/widget/wraterange.cpp
@@ -2183,6 +2194,8 @@ if(BUILD_TESTING)
     src/test/libraryscannertest.cpp
     src/test/librarytest.cpp
     src/test/looping_control_test.cpp
+    src/test/profeatures_test.cpp
+    src/test/aidj_test.cpp
     src/test/main.cpp
     src/test/mathutiltest.cpp
     src/test/metadatatest.cpp

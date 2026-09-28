@@ -825,7 +825,7 @@ warning  - Above + Warnings
 info     - Above + Informational messages
 debug    - Above + Debug/Developer messages
 trace    - Above + Profiling messages</source>
-        <translation>Ustawia szczegółowość rejestrowania wiersza poleceń. krytyczny — ostrzeżenie krytyczne/tylko krytyczne — powyżej + informacje o ostrzeżeniach — powyżej + debugowanie komunikatów informacyjnych — powyżej + śledzenie komunikatów debugowania/programisty — powyżej + komunikaty profilowania</translation>
+        <translation>Ustawia szczegółowość rejestrowania wiersza poleceń. krytyczny - ostrzeżenie krytyczne/tylko krytyczne - powyżej + informacje o ostrzeżeniach - powyżej + debugowanie komunikatów informacyjnych - powyżej + śledzenie komunikatów debugowania/programisty - powyżej + komunikaty profilowania</translation>
     </message>
     <message>
         <location filename="../../src/util/cmdlineargs.cpp" line="318"/>
@@ -5563,27 +5563,27 @@ Zastosować ustawienie i kontynuować?</translation>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="120"/>
         <source>mm:ss%1zz - Traditional</source>
-        <translation>mm:ss%1zz — tradycyjny</translation>
+        <translation>mm:ss%1zz - tradycyjny</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="125"/>
         <source>mm:ss - Traditional (Coarse)</source>
-        <translation>mm:ss — tradycyjny (gruby)</translation>
+        <translation>mm:ss - tradycyjny (gruby)</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="129"/>
         <source>s%1zz - Seconds</source>
-        <translation>s%1zz — sekundy</translation>
+        <translation>s%1zz - sekundy</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="134"/>
         <source>sss%1zz - Seconds (Long)</source>
-        <translation>sss%1zz — sekundy (długie)</translation>
+        <translation>sss%1zz - sekundy (długie)</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="139"/>
         <source>s%1sss%2zz - Kiloseconds</source>
-        <translation>s%1sss%2zz — Kilosekundy</translation>
+        <translation>s%1sss%2zz - Kilosekundy</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefdeck.cpp" line="153"/>

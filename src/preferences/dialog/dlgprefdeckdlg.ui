@@ -192,6 +192,17 @@ You can always drag-and-drop tracks on screen to clone a deck.</string>
         </property>
        </widget>
       </item>
+      <item row="7" column="1" colspan="2">
+       <widget class="QCheckBox" name="checkBoxRestoreDecksOnStartup">
+        <property name="toolTip">
+         <string>Load the tracks of the last session into the decks when Mixxx starts, e.g. after a crash.
+The tracks are loaded but not played.</string>
+        </property>
+        <property name="text">
+         <string>Restore deck tracks of the last session on startup</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

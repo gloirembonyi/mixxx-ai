@@ -846,7 +846,7 @@ trace    - Above + Profiling messages</source>
     <message>
         <location filename="../../src/util/cmdlineargs.cpp" line="318"/>
         <source>Sets the the logging level at which the log buffer is flushed to mixxx.log. &lt;level&gt; is one of the values defined at --log-level above.</source>
-        <translation>设置将日志缓冲区刷新为mixxx.log的日志级别。是上面在——log级别定义的值之一。</translation>
+        <translation>设置将日志缓冲区刷新为mixxx.log的日志级别。是上面在--log级别定义的值之一。</translation>
     </message>
     <message>
         <location filename="../../src/util/cmdlineargs.cpp" line="332"/>
@@ -7094,7 +7094,7 @@ and allows you to pitch adjust them for harmonic mixing.</source>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefmodplugdlg.ui" line="422"/>
         <source>Decoding options for libmodplug, a software library for loading and rendering module files (MOD music, tracker music).</source>
-        <translation>libmodplug 解码器（一个播放模块文件——MOD 音乐、音轨文件的软件库）选项。</translation>
+        <translation>libmodplug 解码器（一个播放模块文件--MOD 音乐、音轨文件的软件库）选项。</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefmodplugdlg.ui" line="425"/>

@@ -72,3 +72,6 @@ src/mixxx.rc.include
 src/mixxx.res
 src/test/**/*.actual
 res/qrc_mixxx.cc
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat

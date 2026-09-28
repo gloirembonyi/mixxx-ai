@@ -150,6 +150,29 @@
 
       <WidgetGroup><Size>7f,1min</Size></WidgetGroup>
 
+      <WidgetGroup><!-- Main limiter toggle, lights up while limiting -->
+        <ObjectName>LimiterBox</ObjectName>
+        <Layout>horizontal</Layout>
+        <SizePolicy>min,min</SizePolicy>
+        <Children>
+          <Template src="skins:LateNight/controls/button_2state.xml">
+            <SetVariable name="TooltipId">limiter_enabled</SetVariable>
+            <SetVariable name="ObjectName">GuiToggleButton</SetVariable>
+            <SetVariable name="Size">46f,20f</SetVariable>
+            <SetVariable name="state_0_text">LIMIT</SetVariable>
+            <SetVariable name="state_1_text">LIMIT</SetVariable>
+            <SetVariable name="ConfigKey">[Master],limiter_enabled</SetVariable>
+          </Template>
+        </Children>
+        <Connection>
+          <ConfigKey>[Master],limiter_reduction_db</ConfigKey>
+          <Transform><Not/><Not/></Transform>
+          <BindProperty>highlight</BindProperty>
+        </Connection>
+      </WidgetGroup>
+
+      <WidgetGroup><Size>7f,1min</Size></WidgetGroup>
+
       <WidgetGroup>
         <ObjectName>LatencyBatteryContainer</ObjectName>
         <Layout>horizontal</Layout>

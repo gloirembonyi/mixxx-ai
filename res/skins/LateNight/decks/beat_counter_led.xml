@@ -1,0 +1,21 @@
+<!--
+Description:
+  One LED of the deck's beat counter. It lights up while the deck is on the
+  given beat of the bar.
+Variables:
+  Group: the deck group
+  Beat: beat of the bar this LED stands for (1..4)
+  LedName: object name used for styling (the downbeat LED is highlighted)
+-->
+<Template>
+  <Label>
+    <ObjectName><Variable name="LedName"/></ObjectName>
+    <TooltipId>beat_in_bar</TooltipId>
+    <Size>9f,12f</Size>
+    <Connection>
+      <ConfigKey><Variable name="Group"/>,beat_in_bar</ConfigKey>
+      <Transform><IsEqual><Variable name="Beat"/></IsEqual></Transform>
+      <BindProperty>highlight</BindProperty>
+    </Connection>
+  </Label>
+</Template>

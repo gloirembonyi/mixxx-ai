@@ -1,5 +1,7 @@
 #include "engine/controls/clockcontrol.h"
 
+#include <limits>
+
 #include "control/controlobject.h"
 #include "control/controlproxy.h"
 #include "engine/controls/enginecontrol.h"
@@ -13,11 +15,42 @@ constexpr double kStandStillTolerance =
         0.005; // (seconds) Minimum change, to he last evaluated position
 constexpr double kSignificiantRateThreshold =
         0.1; // If rate is significiant, update indicator also inside standstill tolerance
+constexpr int kBeatsPerBar = 4;
+constexpr int kBarsPerPhrase = 8;
+constexpr int kBeatsPerPhrase = kBeatsPerBar * kBarsPerPhrase;
+constexpr int kNoBeatIndex = std::numeric_limits<int>::min();
+
+/// Modulo that is always positive, also for beats before the first downbeat
+int positiveModulo(int value, int divisor) {
+    const int result = value % divisor;
+    return result < 0 ? result + divisor : result;
+}
+
+/// Division that rounds towards negative infinity
+int floorDivide(int value, int divisor) {
+    return (value - positiveModulo(value, divisor)) / divisor;
+}
+
+std::unique_ptr<ControlObject> makeReadOnlyCounter(const QString& group, const QString& item) {
+    auto pControl = std::make_unique<ControlObject>(ConfigKey(group, item));
+    pControl->setReadOnly();
+    pControl->forceSet(0.0);
+    return pControl;
+}
 } // namespace
 
 ClockControl::ClockControl(const QString& group, UserSettingsPointer pConfig)
         : EngineControl(group, pConfig),
           m_pCOBeatActive(std::make_unique<ControlObject>(ConfigKey(group, "beat_active"))),
+          m_pCOBeatNumber(makeReadOnlyCounter(group, "beat_number")),
+          m_pCOBeatInBar(makeReadOnlyCounter(group, "beat_in_bar")),
+          m_pCOBarNumber(makeReadOnlyCounter(group, "bar_number")),
+          m_pCOBarInPhrase(makeReadOnlyCounter(group, "bar_in_phrase")),
+          m_pCOPhraseNumber(makeReadOnlyCounter(group, "phrase_number")),
+          m_pCOBeatsUntilPhrase(makeReadOnlyCounter(group, "beats_until_phrase")),
+          m_pCOPhraseLastBar(makeReadOnlyCounter(group, "phrase_last_bar")),
+          m_lastCountedBeatIndex(kNoBeatIndex),
+          m_pCountedBeats(nullptr),
           m_pLoopEnabled(std::make_unique<ControlProxy>(group, "loop_enabled", this)),
           m_pLoopStartPosition(std::make_unique<ControlProxy>(group, "loop_start_position", this)),
           m_pLoopEndPosition(std::make_unique<ControlProxy>(group, "loop_end_position", this)),
@@ -48,6 +81,36 @@ void ClockControl::trackBeatsUpdated(mixxx::BeatsPointer pBeats) {
     m_pBeats = pBeats;
 }
 
+void ClockControl::clearBeatCounter() {
+    m_lastCountedBeatIndex = kNoBeatIndex;
+    m_pCOBeatNumber->forceSet(0.0);
+    m_pCOBeatInBar->forceSet(0.0);
+    m_pCOBarNumber->forceSet(0.0);
+    m_pCOBarInPhrase->forceSet(0.0);
+    m_pCOPhraseNumber->forceSet(0.0);
+    m_pCOBeatsUntilPhrase->forceSet(0.0);
+    m_pCOPhraseLastBar->forceSet(0.0);
+}
+
+void ClockControl::updateBeatCounter(int beatIndex) {
+    if (beatIndex == m_lastCountedBeatIndex) {
+        return;
+    }
+    m_lastCountedBeatIndex = beatIndex;
+    // Beat, bar and phrase numbers are 1-based like on a DJ's count
+    // "1-2-3-4". Beats before the first downbeat get numbers <= 0.
+    const int beatInPhrase = positiveModulo(beatIndex, kBeatsPerPhrase);
+    const int barIndex = floorDivide(beatIndex, kBeatsPerBar);
+    m_pCOBeatNumber->forceSet(beatIndex + 1);
+    m_pCOBeatInBar->forceSet(positiveModulo(beatIndex, kBeatsPerBar) + 1);
+    m_pCOBarNumber->forceSet(barIndex + 1);
+    m_pCOBarInPhrase->forceSet(positiveModulo(barIndex, kBarsPerPhrase) + 1);
+    m_pCOPhraseNumber->forceSet(floorDivide(beatIndex, kBeatsPerPhrase) + 1);
+    m_pCOBeatsUntilPhrase->forceSet(kBeatsPerPhrase - beatInPhrase);
+    m_pCOPhraseLastBar->forceSet(
+            beatInPhrase >= kBeatsPerPhrase - kBeatsPerBar ? 1.0 : 0.0);
+}
+
 void ClockControl::updateIndicators(const double dRate,
         mixxx::audio::FramePos currentPosition,
         mixxx::audio::SampleRate sampleRate) {
@@ -76,18 +139,31 @@ void ClockControl::updateIndicators(const double dRate,
     mixxx::audio::FramePos nextIndicatorPosition;
 
     const mixxx::BeatsPointer pBeats = m_pBeats;
+    // A new track or an edited beatgrid invalidates the cached beats
+    const bool beatsChanged = pBeats.get() != m_pCountedBeats;
+    m_pCountedBeats = pBeats.get();
     if (pBeats) {
-        if (!m_prevBeatPosition.isValid() || !m_nextBeatPosition.isValid() ||
+        if (beatsChanged || !m_prevBeatPosition.isValid() || !m_nextBeatPosition.isValid() ||
                 currentPosition >= m_nextBeatPosition ||
                 currentPosition <= m_prevBeatPosition) {
             pBeats->findPrevNextBeats(currentPosition,
                     &m_prevBeatPosition,
                     &m_nextBeatPosition,
                     false); // Precise compare without tolerance needed
+            if (m_prevBeatPosition.isValid()) {
+                // Only evaluated when a beat is crossed, not on every callback
+                updateBeatCounter(pBeats->iteratorFrom(m_prevBeatPosition) -
+                        pBeats->cfirstmarker());
+            } else {
+                clearBeatCounter();
+            }
         }
     } else {
         m_prevBeatPosition = mixxx::audio::kInvalidFramePos;
         m_nextBeatPosition = mixxx::audio::kInvalidFramePos;
+        if (m_lastCountedBeatIndex != kNoBeatIndex) {
+            clearBeatCounter();
+        }
     }
 
     // Loops need special handling

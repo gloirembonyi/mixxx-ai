@@ -1,5 +1,6 @@
 #include "mixer/playermanager.h"
 
+#include <QFileInfo>
 #include <QRegularExpression>
 
 #include "audio/types.h"
@@ -32,6 +33,16 @@ const QString kLegacyGroup = QStringLiteral("[Master]");
 
 // Utilize half of the available cores for adhoc analysis of tracks
 const int kNumberOfAnalyzerThreads = math_max(1, QThread::idealThreadCount() / 2);
+
+// Last loaded track per deck, e.g. "[DeckSession] Channel1 <location>"
+const QString kDeckSessionGroup = QStringLiteral("[DeckSession]");
+
+ConfigKey deckSessionKey(const QString& deckGroup) {
+    // Items must not contain brackets in the settings file
+    QString item = deckGroup;
+    item.remove(QChar('[')).remove(QChar(']'));
+    return ConfigKey(kDeckSessionGroup, item);
+}
 
 const QRegularExpression kDeckRegex(QStringLiteral("^\\[Channel(\\d+)\\]$"));
 const QRegularExpression kSamplerRegex(QStringLiteral("^\\[Sampler(\\d+)\\]$"));
@@ -357,6 +368,21 @@ void PlayerManager::addDeckInner() {
             this,
             &PlayerManager::slotSaveEjectedTrack);
 
+    const QString deckGroup = pDeck->getGroup();
+    connect(pDeck,
+            &BaseTrackPlayer::newTrackLoaded,
+            this,
+            [this, deckGroup](TrackPointer pTrack) {
+                saveDeckSession(deckGroup, pTrack ? pTrack->getLocation() : QString());
+            });
+    // Only emitted when the user ejects a track, not on shutdown
+    connect(pDeck,
+            &BaseTrackPlayer::playerEmpty,
+            this,
+            [this, deckGroup]() {
+                saveDeckSession(deckGroup, QString());
+            });
+
     if (m_pTrackAnalysisScheduler) {
         connect(pDeck,
                 &BaseTrackPlayer::newTrackLoaded,
@@ -678,6 +704,37 @@ void PlayerManager::slotLoadLocationToPlayerMaybePlay(
         break;
     }
     slotLoadLocationToPlayer(location, group, play);
+}
+
+void PlayerManager::saveDeckSession(const QString& group, const QString& location) {
+    const ConfigKey key = deckSessionKey(group);
+    if (m_pConfig->getValueString(key) == location) {
+        return;
+    }
+    m_pConfig->setValue(key, location);
+    // Write the settings now: a crash would lose the session otherwise
+    m_pConfig->save();
+}
+
+void PlayerManager::restoreDeckSession() {
+    if (!m_pConfig->getValue(kConfigKeyRestoreDecksOnStartup, kDefaultRestoreDecksOnStartup)) {
+        return;
+    }
+    // Copy the list, loading tracks may change the saved session
+    const QList<Deck*> decks = m_decks;
+    for (const Deck* pDeck : decks) {
+        const QString location = m_pConfig->getValueString(deckSessionKey(pDeck->getGroup()));
+        if (location.isEmpty()) {
+            continue;
+        }
+        if (!QFileInfo::exists(location)) {
+            kLogger.info() << "Not restoring missing track" << location
+                           << "to" << pDeck->getGroup();
+            continue;
+        }
+        kLogger.info() << "Restoring" << location << "to" << pDeck->getGroup();
+        slotLoadLocationToPlayer(location, pDeck->getGroup(), false);
+    }
 }
 
 void PlayerManager::slotLoadToDeck(const QString& location, int deck) {

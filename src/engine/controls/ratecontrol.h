@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <atomic>
 
 #include "control/pollingcontrolproxy.h"
 #include "engine/controls/enginecontrol.h"
@@ -90,9 +91,12 @@ public slots:
   void slotControlRatePermUpSmall(double);
   void slotControlFastForward(double);
   void slotControlFastBack(double);
+  void slotControlRateResetSlow(double);
 
 private:
   void processTempRate(const int bufferSamples);
+  // Glides the rate slider back to 0 while a slow reset is active
+  void processSlowRateReset(const int bufferSamples);
   double getJogFactor() const;
   double getWheelFactor() const;
   SyncMode getSyncMode() const;
@@ -127,6 +131,11 @@ private:
   std::unique_ptr<ControlPushButton> m_pButtonRatePermDownSmall;
   std::unique_ptr<ControlPushButton> m_pButtonRatePermUp;
   std::unique_ptr<ControlPushButton> m_pButtonRatePermUpSmall;
+
+  // Smoothly returns the tempo to the track's original BPM
+  std::unique_ptr<ControlPushButton> m_pButtonRateResetSlow;
+  // 1 while the slow reset glide is in progress (read-only)
+  std::unique_ptr<ControlObject> m_pRateResetSlowActive;
 
   std::unique_ptr<ControlPushButton> m_pReverseButton;
   std::unique_ptr<ControlPushButton> m_pReverseRollButton;
@@ -174,4 +183,11 @@ private:
   double m_tempRateRatio;
   // Speed for temporary rate change
   double m_dRateTempRampChange;
+  // Slider units per second that the slow reset glide moves, 0 if inactive.
+  // Only accessed from the engine thread.
+  double m_slowResetSliderPerSecond;
+  // Slider value written by the last glide step, used to detect user moves
+  double m_slowResetLastSlider;
+  // Set by the rate_reset_slow button from any thread, consumed by the engine
+  std::atomic<bool> m_slowResetRequested;
 };

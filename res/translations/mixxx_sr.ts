@@ -7773,7 +7773,7 @@ The loudness target is approximate and assumes track pregain and main output lev
     <message>
         <location filename="../../src/preferences/dialog/dlgprefsounditem.cpp" line="108"/>
         <source>Channels %1 - %2</source>
-        <translation>Канала %1 — %2</translation>
+        <translation>Канала %1 - %2</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefsounditem.ui" line="14"/>
@@ -14601,7 +14601,7 @@ Use this to change only the effected (wet) signal with EQ and filter effects.</s
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="82"/>
         <source>If Vinyl control is enabled, displays time-coded vinyl signal quality (see Preferences -&gt; Vinyl Control).</source>
-        <translation>Ако је укључено управљање плочом, приказиваће квалитет временски шифрованог сигнала плоче (погледајте „Поставке —&gt; Управљање плочом).</translation>
+        <translation>Ако је укључено управљање плочом, приказиваће квалитет временски шифрованог сигнала плоче (погледајте „Поставке -&gt; Управљање плочом).</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="30"/>
@@ -14611,7 +14611,7 @@ Use this to change only the effected (wet) signal with EQ and filter effects.</s
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="205"/>
         <source>Change the crossfader curve in Preferences -&gt; Crossfader</source>
-        <translation>Промените криву постепеног прелаза у „Поставке —&gt; Постепени прелаз“</translation>
+        <translation>Промените криву постепеног прелаза у „Поставке -&gt; Постепени прелаз“</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="235"/>
@@ -14631,7 +14631,7 @@ Use this to change only the effected (wet) signal with EQ and filter effects.</s
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="250"/>
         <source>Activate Vinyl Control from the Menu -&gt; Options.</source>
-        <translation>Покрените управљање плочом из „Изборник —&gt; Опције“.</translation>
+        <translation>Покрените управљање плочом из „Изборник -&gt; Опције“.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="414"/>
@@ -14728,17 +14728,17 @@ Use this to change only the effected (wet) signal with EQ and filter effects.</s
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="757"/>
         <source>Absolute mode - track position equals needle position and speed.</source>
-        <translation>Режим апсолутности — положај нумере изједначава положај и брзину игле.</translation>
+        <translation>Режим апсолутности - положај нумере изједначава положај и брзину игле.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="758"/>
         <source>Relative mode - track speed equals needle speed regardless of needle position.</source>
-        <translation>Режим релативности — брзина нумере изједначава брзину игле без обзира на њен положај.</translation>
+        <translation>Режим релативности - брзина нумере изједначава брзину игле без обзира на њен положај.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="759"/>
         <source>Constant mode - track speed equals last known-steady speed regardless of needle input.</source>
-        <translation>Режим сталности — брзина нумере изједначава последњу знану стабилну брзину без обзира на улаз игле.</translation>
+        <translation>Режим сталности - брзина нумере изједначава последњу знану стабилну брзину без обзира на улаз игле.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="748"/>
@@ -14828,12 +14828,12 @@ Use this to change only the effected (wet) signal with EQ and filter effects.</s
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="764"/>
         <source>Off - Cue points ignored.</source>
-        <translation>Искљ. — Тачке наговештаја су занемарене.</translation>
+        <translation>Искљ. - Тачке наговештаја су занемарене.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="765"/>
         <source>One Cue - If needle is dropped after the cue point, track will seek to that cue point.</source>
-        <translation>Један наговештај — Ако отпустите иглу након тачке наговештаја, нумера ће се премотати до тачке наговештаја.</translation>
+        <translation>Један наговештај - Ако отпустите иглу након тачке наговештаја, нумера ће се премотати до тачке наговештаја.</translation>
     </message>
     <message>
         <location filename="../../src/skin/legacy/tooltips.cpp" line="870"/>

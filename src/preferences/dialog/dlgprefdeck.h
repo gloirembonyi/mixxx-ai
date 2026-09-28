@@ -55,6 +55,9 @@ const ConfigKey kConfigKeyLoadWhenDeckPlaying = ConfigKey("[Controls]", "LoadWhe
 const ConfigKey kConfigKeyAllowTrackLoadToPlayingDeck =
         ConfigKey("[Controls]", "AllowTrackLoadToPlayingDeck");
 constexpr LoadWhenDeckPlaying kDefaultLoadWhenDeckPlaying = LoadWhenDeckPlaying::Reject;
+const ConfigKey kConfigKeyRestoreDecksOnStartup =
+        ConfigKey("[Controls]", "RestoreDecksOnStartup");
+constexpr bool kDefaultRestoreDecksOnStartup = true;
 } // namespace
 
 class DlgPrefDeck : public DlgPreferencePage, public Ui::DlgPrefDeckDlg  {

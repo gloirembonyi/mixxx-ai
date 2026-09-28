@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="32">
+  <title>AI DJ</title>
+  <defs>
+    <linearGradient id="orange" x1="16" y1="2" x2="16" y2="30" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:#ff6600;stop-opacity:1"/>
+      <stop offset="1" style="stop-color:#de5800;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <!-- Large sparkle -->
+  <path style="fill:url(#orange)" d="M 14,3 C 14.9,9.5 16.5,11.1 23,12 16.5,12.9 14.9,14.5 14,21 13.1,14.5 11.5,12.9 5,12 11.5,11.1 13.1,9.5 14,3 Z"/>
+  <!-- Small sparkle -->
+  <path style="fill:url(#orange)" d="M 24,18 C 24.5,21.5 25.5,22.5 29,23 25.5,23.5 24.5,24.5 24,28 23.5,24.5 22.5,23.5 19,23 22.5,22.5 23.5,21.5 24,18 Z"/>
+  <!-- Music note -->
+  <path style="fill:url(#orange)" d="m 9,20 h 2 v 7.5 C 11,28.9 9.9,30 8.5,30 7.1,30 6,28.9 6,27.5 6,26.1 7.1,25 8.5,25 8.7,25 8.8,25 9,25.1 Z"/>
+</svg>

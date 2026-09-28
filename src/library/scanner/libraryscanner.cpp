@@ -589,7 +589,7 @@ void LibraryScanner::slotDirectoryUnchanged(const QString& directoryPath,
         // present in this directory is verified to exist on disk. Feed those
         // locations into the same verified-tracks list that ImportFilesTask
         // populates, so the cleanup phase clears fs_deleted/needs_verification
-        // for them — without touching rows whose file was genuinely removed
+        // for them - without touching rows whose file was genuinely removed
         // before the saved hash was last updated.
         for (const QString& location : presentTrackLocations) {
             m_scannerGlobal->addVerifiedTrack(location);
